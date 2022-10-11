@@ -1,27 +1,20 @@
-const {readFile, writeFile,} = require('fs');
-//const fs = require('fs) same thing as above
+// npm - global command, comes with node
+//npm --version
 
-//if no encoding provided after path and before error, will print buffer to console
-readFile('./content/first.txt','utf-8',(err,result)=> {
-	if(err) {
-		console.log(err)
-		return
-	}
-	//console.log(result)
-	const first = result;
-	readFile('./content/second.txt', 'utf-8',(err,result)=> {
-		if(err) {
-			console.log(err)
-			return
-		}
-		//console.log(result)
-		const second = result;
-		writeFile('./content/result-async.txt', `Here is the result: ${first}, ${second}`,
-		(err,result) => {
-			if(err){
-				return
-			}
-			console.log(err);
-		})
-	})
-})
+// local dependancy - use it only in this particular project
+// npm i <packageName>
+
+//global dependancy - use it in any project
+//npm install -g <packageName>
+//sudo npm install -g <packageName> (mac)
+
+//package.json - manifest file (stores important info about project/package)
+//manual approach (create package.json in the root, create properties etc)
+//npm init (step by step, press enter to skip)
+//npm init -y (everything default)
+
+const _ = require("lodash");
+
+const items = [1, [2, [3, [4]]]]
+const newItems = _.flattenDeep(items)
+console.log(newItems)
