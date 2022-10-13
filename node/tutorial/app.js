@@ -1,13 +1,16 @@
-const EventEmitter = require('events');
+var http = require('http')
+var fs = require('fs')
 
-const customEmitter = new EventEmitter()
+http.createServer(function (req,res) {
+	//These two lines alone send the whole file as a header
+	//const text = fs.readFileSync('./content/big.txt', 'utf-8')
+	//res.end(text)
 
-customEmitter.on('response',(name, id)=> {
-	console.log(`data received user ${name} with id:${id}`)
-})
-
-customEmitter.on('response',()=> {
-	console.log(`some other logic here `)
-})
-
-customEmitter.emit('response','john', 34)
+	const fileStream = fs.createReadStream('./content/big.txt', 'utf-8');
+	fileStream.on('open', ()=> {
+		fileStream.pipe(res)
+	})
+	fileStream.on('error',(err)=> {
+		res.end(err)
+	})
+}).listen(8000)
